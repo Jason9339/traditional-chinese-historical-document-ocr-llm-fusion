@@ -1,0 +1,34 @@
+# Dependencies for Traditional Chinese Historical OCR-LLM Fusion
+# Based on validated experiment environment
+#
+# Python Version: 3.10+
+# CUDA Version: 11.7+ (required for GPU acceleration)
+
+# Deep Learning Framework
+# Note: torch 2.0.1 includes CUDA 11.7 runtime libraries
+torch==2.0.1
+torchvision==0.15.2  # Compatible with torch 2.0.1
+
+# Hugging Face Ecosystem
+transformers==4.38.2
+datasets==4.4.2
+accelerate==0.27.2
+
+# Tokenization
+sentencepiece==0.2.1
+
+# Image Processing
+Pillow>=10.0.0  # Required for ExifTags support in HF datasets
+
+# Numerical Computing
+numpy==1.22.2
+
+# Data Format
+
+# Utilities
+tqdm
+requests
+PyYAML
+
+# LLM Post-correction experiments
+openai>=1.0.0  # Required for GPT-based post-correction (requires OPENAI_API_KEY environment variable)

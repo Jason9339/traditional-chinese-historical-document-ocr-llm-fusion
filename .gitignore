@@ -1,0 +1,41 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+dist/
+build/
+
+# Virtual Environment
+venv/
+env/
+ENV/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# Experiment Results
+results/
+wandb/
+outputs/
+checkpoints/
+
+# Logs
+*.log
+
+# Model checkpoints (except tokenizer)
+models/*/
+!models/tokenizer/
+
+# Environment variables
+.env

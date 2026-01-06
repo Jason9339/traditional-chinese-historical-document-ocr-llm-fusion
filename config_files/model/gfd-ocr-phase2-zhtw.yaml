@@ -1,0 +1,32 @@
+# Phase2 Augmented TrOCR + Breeze LLM 配置
+# 使用 Phase2 訓練的模型（包含水平和垂直文字增強）
+# 路徑相對於 repo 根目錄
+
+ocr_model_path: 'models/ocr_model_phase2'
+ocr_tokenizer_path: 'models/tokenizer_phase2'
+llm_model_path: 'MediaTek-Research/Breeze-7B-32k-Base-v1_0'
+ocr_device: 'cuda:0'
+llm_device: 'cuda:0'
+ocr_torch_dtype: 'float32'
+llm_torch_dtype: 'float16'
+
+# Fusion 設定
+use_cache: 'dynamic'
+fuse_strategy: 'simple'
+fusing_r: 0.3  # LLM 權重 (0.3 = 30% LLM, 70% OCR) - 調整為更依賴 OCR
+llm_attn_implementation: null
+llm_temp: 1.7
+transcription_cutoff: 500
+
+# Beam Search 設定
+repetition_penalty: 2.0
+repetition_penalty_last: 50
+repetition_penalty_window: 50
+repetition_penalty_threshold: 1.0
+beam_terminated_strategy: 'when_all_end'
+beam_select_strategy: 'best'
+beam_max_decode_len: 448
+beam_max_len_diff: 20
+beam_max_len: -1
+beam_min_len: 9999
+logprob_min: -100000
