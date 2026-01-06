@@ -182,10 +182,23 @@ traditional-chinese-historical-document-ocr-llm-fusion/
 
 ## Training
 
-To finetune TrOCR on Lo Chia-Luen dataset:
+### Baseline Training
+
+Train TrOCR from scratch on 4.1M synthetic dataset (target: 100k steps):
 
 ```bash
-python scripts/train/finetune_trocr.py \
+python scripts/train/train_baseline.py \
+  --output_dir models/trocr_baseline \
+  --per_device_train_batch_size 64 \
+  --num_train_epochs 3
+```
+
+### Fine-tuning on Historical Documents
+
+Fine-tune the baseline model on Lo Chia-Luen historical document dataset:
+
+```bash
+python scripts/train/train_finetune.py \
   --dataset ZihCiLin/traditional-chinese-historical-ocr-lo-chia-luen \
   --output_dir models/trocr_finetuned \
   --num_train_epochs 10
