@@ -45,14 +45,14 @@ Experiments show that fusion decoding consistently reduces CER on both semantic 
 
 ### Quick Setup
 
-\`\`\`bash
+```bash
 # Clone the repository
 git clone https://github.com/Jason9339/traditional-chinese-historical-document-ocr-llm-fusion.git
 cd traditional-chinese-historical-document-ocr-llm-fusion
 
 # Install dependencies
 pip install -r requirements.txt
-\`\`\`
+```
 
 **Note**: The `requirements.txt` includes PyTorch 2.0.1 with CUDA 11.7 runtime libraries. If you have a different CUDA version, you may need to install PyTorch separately.
 
@@ -60,25 +60,25 @@ pip install -r requirements.txt
 
 **CUDA Version Mismatch:**
 If you encounter CUDA-related errors, verify your CUDA version:
-\`\`\`bash
+```bash
 nvidia-smi  # Check CUDA driver version
 python -c "import torch; print(torch.cuda.is_available())"
-\`\`\`
+```
 
 **Dependency Conflicts:**
 In a clean environment, some packages may show version warnings. These can usually be ignored if the evaluation scripts run successfully.
 
 **transformer-engine Conflicts:**
 If you see `transformer-engine` errors, uninstall it:
-\`\`\`bash
+```bash
 pip uninstall transformer-engine -y
-\`\`\`
+```
 
 **Gated Dataset Access:**
 If you see "gated dataset" or "must be authenticated" errors:
-\`\`\`
+```
 Dataset 'ZihCiLin/traditional-chinese-historical-ocr-lo-chia-luen' is a gated dataset
-\`\`\`
+```
 This means you need to:
 1. Request access at the [dataset page](https://huggingface.co/datasets/ZihCiLin/traditional-chinese-historical-ocr-lo-chia-luen)
 2. Login with `huggingface-cli login` after approval
@@ -97,16 +97,16 @@ Test Set 3 uses the Lo Chia-Luen historical document dataset, which contains lib
 2. **Click "Request Access"** and accept the terms
 3. **Wait for Approval** (usually within 24 hours)
 4. **Login to HuggingFace**:
-   \`\`\`bash
+   ```bash
    huggingface-cli login
    # Or set your token: export HF_TOKEN="your-token"
-   \`\`\`
+   ```
 
 **Note**: Test Set 1 & 2 (synthetic datasets) are publicly accessible and do not require approval.
 
 ### Download Models and Data
 
-\`\`\`bash
+```bash
 # Test Set 1 & 2 are publicly accessible
 # Dataset: ZihCiLin/traditional-chinese-ocr-synthetic
 
@@ -114,17 +114,17 @@ Test Set 3 uses the Lo Chia-Luen historical document dataset, which contains lib
 # Dataset: ZihCiLin/traditional-chinese-historical-ocr-lo-chia-luen
 
 # Models are automatically downloaded when running evaluation scripts
-\`\`\`
+```
 
 ---
 
 ## Reproduce Paper Tables
 
-All experiments can be reproduced using the provided scripts in \`experiments/\`.
+All experiments can be reproduced using the provided scripts in `experiments/`.
 
 ### Table 1: Baseline TrOCR Results
 
-\`\`\`bash
+```bash
 # Test Set 1 (Synthetic Random)
 bash experiments/run_testset1.sh --model baseline
 
@@ -133,37 +133,37 @@ bash experiments/run_testset2.sh --model baseline
 
 # Test Set 3 (Real Historical)
 bash experiments/run_testset3.sh --model baseline
-\`\`\`
+```
 
 ### Table 2: Finetuned TrOCR Results
 
-\`\`\`bash
+```bash
 # Test Set 1-3 with finetuned model
 bash experiments/run_testset1.sh --model finetune
 bash experiments/run_testset2.sh --model finetune
 bash experiments/run_testset3.sh --model finetune
-\`\`\`
+```
 
 ### Table 3: Post-Correction vs Fusion
 
-\`\`\`bash
+```bash
 # Comparison with LLM-based post-correction
 bash experiments/run_postcorrection.sh
 # Note: Requires OpenAI API key for GPT-based experiments
-\`\`\`
+```
 
 ### Table 4: Lambda Ablation Study
 
-\`\`\`bash
+```bash
 # Fusion weight λ sensitivity (0.0, 0.1, 0.3, 0.5, 0.7, 0.9)
 bash experiments/run_lambda_ablation.sh
-\`\`\`
+```
 
 ---
 
 ## Project Structure
 
-\`\`\`
+```
 traditional-chinese-historical-document-ocr-llm-fusion/
 ├── gfd/                    # Core fusion decoding implementation
 ├── scripts/                # Evaluation scripts
@@ -176,7 +176,7 @@ traditional-chinese-historical-document-ocr-llm-fusion/
 ├── models/                # Tokenizer files
 ├── requirements.txt       # Python dependencies
 └── README.md
-\`\`\`
+```
 
 ---
 
@@ -184,12 +184,12 @@ traditional-chinese-historical-document-ocr-llm-fusion/
 
 To finetune TrOCR on Lo Chia-Luen dataset:
 
-\`\`\`bash
+```bash
 python scripts/train/finetune_trocr.py \
   --dataset ZihCiLin/traditional-chinese-historical-ocr-lo-chia-luen \
   --output_dir models/trocr_finetuned \
   --num_train_epochs 10
-\`\`\`
+```
 
 ---
 
