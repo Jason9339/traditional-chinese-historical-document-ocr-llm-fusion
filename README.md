@@ -52,9 +52,12 @@ cd traditional-chinese-historical-document-ocr-llm-fusion
 
 # Install dependencies
 pip install -r requirements.txt
+
+# Remove transformer-engine (conflicts with PyTorch 2.0.1)
+pip uninstall transformer-engine -y
 ```
 
-**Note**: The `requirements.txt` includes PyTorch 2.0.1 with CUDA 11.7 runtime libraries. If you have a different CUDA version, you may need to install PyTorch separately.
+**Note**: PyTorch 2.0.1 is required. If `transformer-engine` is pre-installed on your system, it must be removed to avoid import errors.
 
 ### Troubleshooting
 
@@ -69,10 +72,11 @@ python -c "import torch; print(torch.cuda.is_available())"
 In a clean environment, some packages may show version warnings. These can usually be ignored if the evaluation scripts run successfully.
 
 **transformer-engine Conflicts:**
-If you see `transformer-engine` errors, uninstall it:
+If you see import errors with `undefined symbol` messages, this is due to `transformer-engine` being incompatible with PyTorch 2.0.1. Uninstall it:
 ```bash
 pip uninstall transformer-engine -y
 ```
+Error example: `ImportError: undefined symbol: _ZN3c10ltERKNS_6SymIntEi`
 
 **Gated Dataset Access:**
 If you see "gated dataset" or "must be authenticated" errors:

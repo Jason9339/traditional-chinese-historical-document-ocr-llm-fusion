@@ -126,7 +126,10 @@ class OCRWithCandidates:
 
         return result
 
-    def _preprocess_image(self, image: Union[Image.Image, torch.Tensor]) -> torch.Tensor:
+    def _preprocess_image(
+        self,
+        image: Union[Image.Image, torch.Tensor]
+    ) -> torch.Tensor:
         """
         Preprocess image (using same preprocessing as training)
 
@@ -139,34 +142,53 @@ class OCRWithCandidates:
         if isinstance(image, torch.Tensor):
             # Already a tensor, ensure it's on correct device and dtype
             pixel_values = image.to(self.device)
+
         else:
             # PIL Image, use same OCRImageTransform as training
             try:
                 # Try to use training-time OCRImageTransform
                 import sys
                 import os
-                repo_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+                repo_root = os.path.dirname(
+                    os.path.dirname(os.path.abspath(__file__))
+                )
                 if repo_root not in sys.path:
                     sys.path.insert(0, repo_root)
-                from image_preprocessing import OCRImageTransform
+
+                from gfd.image_preprocessing import OCRImageTransform
 
                 transform = OCRImageTransform(
                     target_size=(384, 384),
                     auto_rotate_vertical=True,  # Auto-rotate vertical text
                     normalize=True
                 )
+
                 pixel_values = transform(image).unsqueeze(0).to(self.device)
 
             except Exception as e:
-                print(f"⚠  Unable to use OCRImageTransform, using fallback preprocessing: {e}")
+                print(
+                    f"⚠ Unable to use OCRImageTransform, "
+                    f"using fallback preprocessing: {e}"
+                )
+
                 # Fallback: use simple preprocessing
                 import torchvision.transforms as transforms
+
                 transform = transforms.Compose([
                     transforms.Resize((384, 384)),
                     transforms.ToTensor(),
-                    transforms.Normalize(mean=[0.5, 0.5, 0.5], std=[0.5, 0.5, 0.5])
+                    transforms.Normalize(
+                        mean=[0.5, 0.5, 0.5],
+                        std=[0.5, 0.5, 0.5]
+                    )
                 ])
-                pixel_values = transform(image.convert("RGB")).unsqueeze(0).to(self.device)
+
+                pixel_values = (
+                    transform(image.convert("RGB"))
+                    .unsqueeze(0)
+                    .to(self.device)
+                )
 
         # Ensure dtype matches model
         model_dtype = next(self.model.parameters()).dtype
@@ -174,6 +196,7 @@ class OCRWithCandidates:
             pixel_values = pixel_values.to(model_dtype)
 
         return pixel_values
+       
 
     def _extract_top_k_candidates(
         self,
