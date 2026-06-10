@@ -223,6 +223,14 @@ Citation will be updated after acceptance.
 - **Synthetic Dataset**: CC BY 4.0
 - **Lo Chia-Luen Benchmark**: CC BY-NC 4.0 (non-commercial use only)
 
+## Persistent Identifier
+
+This repository is archived on [Software Heritage](https://archive.softwareheritage.org):
+
+```
+swh:1:rev:86ff48366f01b7ef851bb310be5d808118376d3f
+```
+
 ---
 
 ## Acknowledgments
