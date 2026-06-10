@@ -95,16 +95,17 @@ This means you need to:
 
 **Lo Chia-Luen Benchmark is a Gated Dataset**
 
-Test Set 3 uses the Lo Chia-Luen historical document dataset, which contains library materials and requires access approval:
+Test Set 3 uses the Lo Chia-Luen historical document dataset, which contains library materials from NCCU Libraries. Access is **automatically granted** upon agreeing to the usage terms (non-commercial research only).
 
 1. **Request Access**: Visit [ZihCiLin/traditional-chinese-historical-ocr-lo-chia-luen](https://huggingface.co/datasets/ZihCiLin/traditional-chinese-historical-ocr-lo-chia-luen)
-2. **Click "Request Access"** and accept the terms
-3. **Wait for Approval** (usually within 24 hours)
-4. **Login to HuggingFace**:
+2. **Click "Request Access"** and accept the terms — access is granted immediately
+3. **Login to HuggingFace**:
    ```bash
    huggingface-cli login
    # Or set your token: export HF_TOKEN="your-token"
    ```
+
+> **RRPR Reviewers**: Access is automatically granted upon agreeing to the terms. If you encounter any issues, please contact the author at 111703004@g.nccu.edu.tw or jasonlin930309@gmail.com.
 
 **Note**: Test Set 1 & 2 (synthetic datasets) are publicly accessible and do not require approval.
 
@@ -233,4 +234,4 @@ This work is based on the Lo Chia-Luen Manuscripts from the Special Collection C
 ## Contact
 
 For questions or issues, please open an issue on GitHub or contact:
-- Zih-Ci Lin: 111703004@g.nccu.edu.tw
+- Zih-Ci Lin: 111703004@g.nccu.edu.tw / jasonlin930309@gmail.com
