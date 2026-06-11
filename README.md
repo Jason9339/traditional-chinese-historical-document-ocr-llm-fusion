@@ -38,10 +38,10 @@ Experiments show that fusion decoding consistently reduces CER on both semantic 
 ### System Requirements
 - **Python**: 3.10+
 - **GPU**: NVIDIA GPU with CUDA 11.7+ support
-  - Minimum 8GB VRAM (for inference)
-  - 16GB+ VRAM recommended (for training)
-- **RAM**: 16GB+ system memory
-- **Disk Space**: ~10GB for models and cache
+  - Tested on: NVIDIA RTX A6000 (48GB VRAM), single GPU
+  - Minimum ~20GB VRAM recommended (Breeze-7B fp16 ~14GB + TrOCR + beam search overhead)
+- **RAM**: 32GB+ system memory
+- **Disk Space**: ~20GB for models and cache
 
 ### Quick Setup
 
@@ -213,14 +213,24 @@ python scripts/train/train_finetune.py \
 
 ## Citation
 
-Citation will be updated after acceptance.
+If you use this work, please cite:
+
+```bibtex
+@inproceedings{lin2026decoding,
+  title     = {Decoding-Time Fusion of OCR and Large Language Models for Traditional Chinese Historical Document Recognition},
+  author    = {Zih-Ci Lin and Wen-Hung Liao},
+  booktitle = {Proceedings of the 28th International Conference on Pattern Recognition (ICPR)},
+  year      = {2026},
+  note      = {ICPR 2026, Paper \#792}
+}
+```
 
 ---
 
 ## License
 
 - **Code**: MIT License
-- **Synthetic Dataset**: CC BY 4.0
+- **Synthetic Dataset**: CC BY-NC 4.0
 - **Lo Chia-Luen Benchmark**: CC BY-NC 4.0 (non-commercial use only)
 
 ## Persistent Identifier
