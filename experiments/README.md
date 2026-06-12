@@ -39,28 +39,28 @@ bash experiments/run_testset2.sh
 bash experiments/run_testset3.sh
 ```
 
-### Lambda Ablation Study
-- **Script**: `run_lambda_ablation.sh`
-- **Dataset**: Historical test set (185 samples)
-- **Model**: Finetune only
-- **Tests**: Fusion weight λ ∈ {0.0, 0.1, 0.3, 0.5, 0.7, 0.9}
-- **Reproduces**: Table 3 (ablation study)
-
-```bash
-bash experiments/run_lambda_ablation.sh
-```
-
 ### Post-correction Experiments
 - **Script**: `run_postcorrection.sh`
 - **Dataset**: Historical test set (185 samples)
 - **Configuration**: Finetune OCR + ChatGPT
 - **Modes**: baseline + strict + loose (3 experiments)
-- **Reproduces**: Table 4 (pipeline post-correction)
+- **Reproduces**: Table 3 (post-correction vs. decoding-time fusion)
 
 **Note**: Requires OpenAI API key:
 ```bash
 export OPENAI_API_KEY='your-key-here'
 bash experiments/run_postcorrection.sh
+```
+
+### Lambda Ablation Study
+- **Script**: `run_lambda_ablation.sh`
+- **Dataset**: Historical test set (185 samples)
+- **Model**: Finetune only
+- **Tests**: Fusion weight λ ∈ {0.0, 0.1, 0.3, 0.5, 0.7, 0.9}
+- **Reproduces**: Table 4 (fusion weight ablation)
+
+```bash
+bash experiments/run_lambda_ablation.sh
 ```
 
 ## Requirements
@@ -75,7 +75,7 @@ Datasets are automatically downloaded from HuggingFace on first run:
 ### Models
 Models are automatically loaded from HuggingFace Hub:
 - Baseline: `ZihCiLin/trocr-traditional-chinese-baseline`
-- Finetune: `ZihCiLin/trocr-traditional-chinese-historical`
+- Finetune: `ZihCiLin/trocr-traditional-chinese-historical-finetune`
 
 ## Output
 

@@ -125,43 +125,43 @@ Test Set 3 uses the Lo Chia-Luen historical document dataset, which contains lib
 
 ## Reproduce Paper Tables
 
-All experiments can be reproduced using the provided scripts in `experiments/`.
+All experiments can be reproduced using the provided scripts in `experiments/`. Each script downloads models and datasets automatically on first run.
 
-### Table 1: Baseline TrOCR Results
+### Tables 1 & 2: CER Results (Baseline and Finetuned TrOCR)
+
+Each script evaluates **both** models (Baseline / Finetuned) × **both** modes (Pure OCR / GFD fusion λ=0.3) in a single run.
+
+| Script | Dataset | Prerequisites | Est. Time |
+|--------|---------|---------------|-----------|
+| `run_testset1.sh` | Synthetic Random (1000 samples) | None | ~3–4 hrs |
+| `run_testset2.sh` | Synthetic Semantic (395 samples) | None | ~1–2 hrs |
+| `run_testset3.sh` | Real Historical (185 samples) | HF login (see below) | ~1 hr |
 
 ```bash
-# Test Set 1 (Synthetic Random)
-bash experiments/run_testset1.sh --model baseline
-
-# Test Set 2 (Synthetic Semantic)
-bash experiments/run_testset2.sh --model baseline
-
-# Test Set 3 (Real Historical)
-bash experiments/run_testset3.sh --model baseline
+bash experiments/run_testset1.sh 2>&1 | tee testset1.log
+bash experiments/run_testset2.sh 2>&1 | tee testset2.log
+bash experiments/run_testset3.sh 2>&1 | tee testset3.log  # requires HF login
 ```
 
-### Table 2: Finetuned TrOCR Results
+Results are saved to `results/testsetN_<timestamp>/`.
 
+### Table 3: Post-Correction vs. Decoding-Time Fusion (Test Set 3)
+
+Compares Pure OCR, LLM Post-Correction (GPT), and GFD on the real historical test set.
+
+**Requires OpenAI API key:**
 ```bash
-# Test Set 1-3 with finetuned model
-bash experiments/run_testset1.sh --model finetune
-bash experiments/run_testset2.sh --model finetune
-bash experiments/run_testset3.sh --model finetune
+export OPENAI_API_KEY="your_openai_api_key"
+bash experiments/run_postcorrection.sh 2>&1 | tee postcorrection.log
 ```
 
-### Table 3: Post-Correction vs Fusion
+### Table 4: Fusion Weight λ Ablation (Test Set 3, Finetuned TrOCR)
 
+Sweeps λ ∈ {0.0, 0.1, 0.3, 0.5, 0.7, 0.9} on the real historical test set.
+
+**Requires HF login** (same dataset as Test Set 3):
 ```bash
-# Comparison with LLM-based post-correction
-bash experiments/run_postcorrection.sh
-# Note: Requires OpenAI API key for GPT-based experiments
-```
-
-### Table 4: Lambda Ablation Study
-
-```bash
-# Fusion weight λ sensitivity (0.0, 0.1, 0.3, 0.5, 0.7, 0.9)
-bash experiments/run_lambda_ablation.sh
+bash experiments/run_lambda_ablation.sh 2>&1 | tee lambda_ablation.log
 ```
 
 ---
